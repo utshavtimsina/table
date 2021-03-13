@@ -10,8 +10,16 @@ export default class App extends Component {
   };
 
   async getUsersData() {
-    const res = await axios.get("/client-records/find/all");
-    this.setState({ loading: false, records: res.data });
+    try {
+      const res = await axios.get("/client-records/find/all");
+      let tableData =
+        res &&
+        res.data &&
+        res.data.map((d, index) => ({ ...d, sn: index + 1 }));
+      this.setState({ loading: false, records: [...tableData] });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   componentDidMount() {
@@ -21,8 +29,8 @@ export default class App extends Component {
   render() {
     const columns = [
       {
-        Header: "ID",
-        accessor: "id",
+        Header: "S.N",
+        accessor: "sn",
       },
       {
         Header: "Name",
