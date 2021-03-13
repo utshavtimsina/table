@@ -12,7 +12,7 @@ export default class App extends Component {
     }
   }
   async getUsersData(){
-    const res = await axios.get('http://ec2-18-215-157-53.compute-1.amazonaws.com:8081/client-records/find/all')
+    const res = await axios.get('http://hosting.iptvnepal.net:8081/client-records/find/all')
     console.log(res.data)
     this.setState({loading:false, records: res.data})
   }
